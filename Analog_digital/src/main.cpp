@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  if(Serial.available()>0){
+  if(Serial.available()>7){
     if(Serial.read()=='#'){
       r = Serial.parseInt();
       g = Serial.parseInt();
