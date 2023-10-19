@@ -2,10 +2,10 @@ import processing.serial.*;
 
 Serial vmesnik;
 short index=1;
-int r=100,b=50,g=30;
+String napetost;
 
 void setup(){
-  size(800,600);
+  size(80,60);
   String vrata = Serial.list()[index];
   println((Object[])Serial.list());
   println(vrata);
@@ -13,22 +13,11 @@ void setup(){
 }
 
 void draw(){
-  background(r,g,b);
 }
 
-void mousePressed(){
-  posljiSporocilo();
-}
-
-void posljiSporocilo(){
-  r = (int)random(255);
-  g = (int)random(255);
-  b = (int)random(255);
-  println(r+" "+g+" "+b);
-  vmesnik.write('#');
-  vmesnik.write(str(r));
-  vmesnik.write(',');
-  vmesnik.write(str(g));  
-  vmesnik.write(',');
-  vmesnik.write(str(b));
+void serialEvent(Serial vmesnik){
+  if(vmesnik.read() == '#'){ //<>//
+    napetost = vmesnik.readStringUntil('\n');
+    println(float(napetost));
+  }
 }
