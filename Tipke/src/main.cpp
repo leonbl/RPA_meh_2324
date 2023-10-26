@@ -7,6 +7,7 @@ void setup()
 {
   pinMode(tipka, INPUT);
   pinMode(led, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop()
@@ -21,8 +22,10 @@ void loop()
       if (stanje == 0)
         dCnt++;
     }
-    if (dCnt > 2)
+    if (dCnt > 2){
+      Serial.println("Prtisnu gumb");
       digitalWrite(led, !digitalRead(led));
+    }
   }
   staroStanje = stanje;
 }
