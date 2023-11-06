@@ -20,7 +20,7 @@ void loop()
     {
       delay(5);
       if (stanje == 0)
-        dCnt++;
+        dCnt++; 
     }
     while(digitalRead(tipka) == 0){
       delay(1);
