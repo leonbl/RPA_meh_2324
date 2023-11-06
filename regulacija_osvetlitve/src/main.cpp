@@ -4,8 +4,8 @@
 #define led3 11
 
 double pwm = 0.0;
-double Kp = 10.2;
-double Kd = 5.0;
+double Kp = 1.2;
+double Kd = 0.8;
 double e_prejsnji = 0.0, e = 0.0;
 
 void setup() {
