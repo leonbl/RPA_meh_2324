@@ -4,9 +4,11 @@
 #define led3 11
 
 double pwm = 0.0;
-double Kp = 1.2;
-double Kd = 0.8;
+double Kp = 1.0;
+double Kd = 0.0;
+double Ki = 1.0;
 double e_prejsnji = 0.0, e = 0.0;
+double e_sum = 0.0;
 const uint32_t interval = 1;
 uint32_t frameCount = 0;
 
@@ -28,10 +30,14 @@ void loop()
     int osvetlitev = analogRead(A1);
     long osvetlitev_m = map(osvetlitev, 0, 1023, 0, 255);
     e = setpoint_m - osvetlitev_m;
-    pwm = Kp * e + Kd * (e - e_prejsnji)/(double)interval;
+    e_sum += (e * interval);
+    if (e_sum > 100) e_sum = 100;
+    if (e_sum < -100) e_sum = -100;
+
+    pwm = Kp * e + Kd * (e - e_prejsnji)/(double)interval + Ki * e_sum;
     if (pwm > 255.0)
       pwm = 255.0;
-      
+
     Serial.print(frameCount++);
     Serial.print("\t");
     Serial.print(pwm);
