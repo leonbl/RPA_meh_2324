@@ -2,7 +2,7 @@
 #include <QuickPID.h>
 
 #define PIN_INPUT A1
-#define PIN_OUTPUT 3
+#define PIN_OUTPUT 5
 
 HardwareTimer *Tim1;
 TIM_TypeDef *I1;
