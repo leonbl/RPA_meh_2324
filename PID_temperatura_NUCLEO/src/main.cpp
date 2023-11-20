@@ -21,7 +21,7 @@ void setup()
 {
   Serial.begin(115200);
   Input = analogRead(PIN_INPUT);
-  Setpoint = 900;
+  Setpoint = 400;
   // apply PID gains
   myPID.SetTunings(Kp, Ki, Kd);
 
@@ -55,9 +55,11 @@ void loop()
     myPID.Compute();
     long pwm = map(Output, 0, 255, 0, 100);
     Tim1->setCaptureCompare(c1, pwm, PERCENT_COMPARE_FORMAT);
+    Serial.print(Setpoint);
+    Serial.print("\t");
     Serial.print(Input);
-    Serial.print(" ");
-    Serial.println(pwm);
+    Serial.print("\t");
+    Serial.println(Output);
     computeNow = false;
   }
 }
