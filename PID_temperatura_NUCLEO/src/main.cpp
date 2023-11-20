@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <QuickPID.h>
 
-#define PIN_INPUT A1
-#define PIN_OUTPUT 5
+#define PIN_INPUT A0
+#define PIN_OUTPUT 6
 
 HardwareTimer *Tim1;
 TIM_TypeDef *I1;
@@ -11,7 +11,7 @@ volatile bool computeNow = false;
 
 // Define Variables we'll be connecting to
 float Setpoint, Input, Output;
-float Kp = 2, Ki = 5, Kd = 1;
+float Kp = 200, Ki = 0, Kd = 0;
 // Specify PID links
 QuickPID myPID(&Input, &Output, &Setpoint);
 
@@ -21,7 +21,7 @@ void setup()
 {
   Serial.begin(115200);
   Input = analogRead(PIN_INPUT);
-  Setpoint = 400;
+  Setpoint = 870;
   // apply PID gains
   myPID.SetTunings(Kp, Ki, Kd);
 
@@ -31,7 +31,7 @@ void setup()
   Tim1->setMode(c1, TIMER_OUTPUT_COMPARE_PWM1, PIN_OUTPUT);
   Tim1->resume();
 
-  uint32_t perioda = 100000;
+  uint32_t perioda = 1000;
   TIM_TypeDef *PeriodTimer = TIM3;
   HardwareTimer *casovnik = new HardwareTimer(PeriodTimer);
   casovnik->setOverflow(perioda, MICROSEC_FORMAT);
