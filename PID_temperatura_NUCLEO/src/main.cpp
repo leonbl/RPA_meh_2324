@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <QuickPID.h>
 
-#define PIN_INPUT A0
-#define PIN_OUTPUT 6
+#define PIN_INPUT A1
+#define PIN_OUTPUT 5
 
 HardwareTimer *Tim1;
 TIM_TypeDef *I1;
@@ -11,7 +11,7 @@ volatile bool computeNow = false;
 
 // Define Variables we'll be connecting to
 float Setpoint, Input, Output;
-float Kp = 200, Ki = 0, Kd = 0;
+float Kp = 10, Ki = 0, Kd = 0;
 // Specify PID links
 QuickPID myPID(&Input, &Output, &Setpoint);
 
@@ -52,6 +52,7 @@ void loop()
   if (computeNow)
   {
     Input = analogRead(PIN_INPUT);
+    if(Output == 0) Input -= 30;
     myPID.Compute();
     long pwm = map(Output, 0, 255, 0, 100);
     Tim1->setCaptureCompare(c1, pwm, PERCENT_COMPARE_FORMAT);
