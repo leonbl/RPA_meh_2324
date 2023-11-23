@@ -7,7 +7,7 @@
 
 //Define Variables we'll be connecting to
 float Setpoint, Input, Output;
-float Kp = 1.2, Ki = 0.8, Kd = 0.0;
+float Kp = 1.3, Ki = 15.0, Kd = 0.1;
 //Specify PID links
 QuickPID myPID(&Input, &Output, &Setpoint);
 
@@ -15,7 +15,7 @@ uint8_t speed = 0;
 bool direction = 1;
 
 // Sample time
-uint32_t loopTime = 100;
+uint32_t loopTime = 10;
 uint32_t time = 0;
 
 volatile int32_t cnt = 0, oldCnt=0;
@@ -25,7 +25,7 @@ IFX007TMotorControl MyMotor = IFX007TMotorControl();
 void encoder();
 
 void setup() {
-  Setpoint = 100;
+  Setpoint = 10000;
   myPID.SetOutputLimits(-255, 255);
   myPID.SetSampleTimeUs(loopTime * 1000);
   //apply PID gains
@@ -42,7 +42,8 @@ void setup() {
 void loop() {
   while(millis()-time < loopTime){}
   time = millis();
-  Input = cnt - oldCnt;  
+  Input = cnt;  // pozicija
+  //Input = cnt - oldCnt;  // hitrost
   oldCnt = cnt;
   myPID.Compute();
   Serial.print(Input);
