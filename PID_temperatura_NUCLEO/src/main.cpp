@@ -11,7 +11,7 @@ volatile bool computeNow = false;
 
 // Define Variables we'll be connecting to
 float Setpoint, Input, Output;
-float Kp = 10, Ki = 0, Kd = 0;
+float Kp = 50, Ki = 10, Kd = 0;
 // Specify PID links
 QuickPID myPID(&Input, &Output, &Setpoint);
 
@@ -21,7 +21,7 @@ void setup()
 {
   Serial.begin(115200);
   Input = analogRead(PIN_INPUT);
-  Setpoint = 870;
+  Setpoint = 950;
   // apply PID gains
   myPID.SetTunings(Kp, Ki, Kd);
 
