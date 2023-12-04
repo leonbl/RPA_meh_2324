@@ -7,7 +7,7 @@ char [] data = new char[6];
 int xPos = 0;
 String message = new String();
 int cnt = 0;
-float Kp, Ki, Kd, Setpoint, Input, Output;
+String Kp, Ki, Kd, Setpoint, Input, Output;
 
 void setup() {
   size(500, 200);
@@ -31,7 +31,7 @@ void serialEvent(Serial vmesnik) {
     
     if (ch == '#')
     {  
-      float[] list = float(split(message, ','));
+      String[] list = split(message, ',');
       Kp = list[0];
       Ki = list[1];
       Kd = list[2];
