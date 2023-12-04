@@ -44,22 +44,19 @@ void setup()
 
 void loop()
 {
-  uint32_t cnt = 0;
+  //uint32_t cnt = 0;
   while (millis() - time < loopTime)
   {
-    if(cnt == 0){
+/*    if(cnt == 0){
       Serial.println(millis() - time);
       cnt = 1;
-    }
+    } */
   }
   time = millis();
   Input = cnt; // pozicija
   // Input = cnt - oldCnt;  // hitrost
   oldCnt = cnt;
   myPID.Compute();
-  // Serial.print(Input);
-  // Serial.print(" ");
-  // Serial.println(Output);
   if (Output < 0)
   {
     direction = false;
