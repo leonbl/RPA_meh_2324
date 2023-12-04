@@ -17,7 +17,7 @@ uint8_t speed = 0;
 bool direction = 1;
 
 // Sample time
-uint32_t loopTime = 10;
+uint32_t loopTime = 50;
 uint32_t time = 0;
 
 volatile int32_t cnt = 0, oldCnt = 0;
@@ -44,8 +44,13 @@ void setup()
 
 void loop()
 {
+  uint32_t cnt = 0;
   while (millis() - time < loopTime)
   {
+    if(cnt == 0){
+      Serial.println(millis() - time);
+      cnt = 1;
+    }
   }
   time = millis();
   Input = cnt; // pozicija
@@ -87,12 +92,6 @@ void loop()
       }
       else if (str[index] == 'X')
       {
-        Serial.print("Kp: ");
-        Serial.print(Kp);
-        Serial.print(" Kd: ");
-        Serial.print(Kd);
-        Serial.print(" Ki: ");
-        Serial.println(Ki);
       }
       else if (str[index] == '#')
       {
@@ -125,6 +124,18 @@ void loop()
     cmd = ' ';
     memset(str, 0, 50);
   }
+  Serial.print(Kp);
+  Serial.print(",");
+  Serial.print(Ki);
+  Serial.print(",");
+  Serial.print(Kd);
+  Serial.print(",");
+  Serial.print(Setpoint);
+  Serial.print(",");
+  Serial.print(Input);
+  Serial.print(",");
+  Serial.print(Output);
+  Serial.println("#");
 }
 
 void encoder()
