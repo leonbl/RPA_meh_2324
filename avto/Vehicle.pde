@@ -9,11 +9,11 @@ class Vehicle {
 
   Vehicle(float x, float y) {
     acceleration = new PVector(0,0);
-    velocity = new PVector(0.3,0);
+    velocity = new PVector(1,0);
     position = new PVector(x,y);
     rx = 8;
     ry = 12;
-    maxspeed = 0.4;
+    maxspeed = 1;
     maxforce = 0.1;
   }
 
